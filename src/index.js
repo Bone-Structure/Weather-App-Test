@@ -6,11 +6,11 @@ function refreshWeather(response){
     let humidityElement = document.querySelector("#humidity");
     let windSpeedElelment = document.querySelector("#wind-speed");
     let timeElement = document.querySelector("#time");
-    let date = new Date(response.data.time* 1000);
+    let date = new Date(response.data.time * 1000);
     let iconElement=document.querySelector("#icon");
     
     iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon"/>`;
-    cityElement.innerHTML=response.data.city;
+    cityElement.innerHTML= response.data.city;
     timeElement.innerHTML= formatDate(date);
     descriptionElement.innerHTML = response.data.condition.description;
     humidityElement.innerHTML=`${response.data.temperature.humidity}%`; 
@@ -28,13 +28,14 @@ function formatDate(date) {
         "Wednesday",
         "Thursday",
         "Friday",
-        "Saturday",];
-    let day =days[date.getDay()];
+        "Saturday",
+      ];
+      let day= days[date.getDay()];
 
     if (minutes < 10){
     minutes= `0${minutes}`;
- }
-    return `${days} ${hours}:${minutes}`;
+    }
+    return `${day} ${hours}:${minutes}`;
 }
 function searchCity(city){
     let apiKey="3e7751ao608a0543f0ba87d742et2457";
@@ -44,8 +45,8 @@ function searchCity(city){
 function handleSearchSubmit(event){
     event.preventDefault();
     let searchInput = document.querySelector("#search-form-input");
-   
     searchCity(searchInput.value);
+    console.log(formatDate);
 }
 
 let searchFormElement= document.querySelector("#search-form");
