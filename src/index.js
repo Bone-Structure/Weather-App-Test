@@ -16,6 +16,8 @@ function refreshWeather(response){
     humidityElement.innerHTML=`${response.data.temperature.humidity}%`; 
     windSpeedElelment.innerHTML=`${response.data.wind.speed}m/hr`;
     temperatureElement.innerHTML = Math.round(temperature);
+
+    getForecast(response.data.city);
 }
 
 function formatDate(date) {
@@ -39,7 +41,7 @@ function formatDate(date) {
 }
 function searchCity(city){
     let apiKey="3e7751ao608a0543f0ba87d742et2457";
-    let apiUrl=`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+    let apiUrl=`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(refreshWeather);
 }
 function handleSearchSubmit(event){
@@ -49,7 +51,14 @@ function handleSearchSubmit(event){
     console.log(formatDate);
 }
 
-function displayForecast() {
+function getForecast(){
+  let apiKey = "3e7751ao608a0543f0ba87d742et2457";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios(apiUrl).then(displayForecast);
+
+}
+
+function displayForecast(response) {
   let days = ["Tues","Wed","Thur","Fri","Sat"];
   let forecastHtml = "";
 
@@ -78,4 +87,4 @@ forecastElement.innerHTML = forecastHtml;
 let searchFormElement= document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 searchCity("Shanghai");
-displayForecast();
+
